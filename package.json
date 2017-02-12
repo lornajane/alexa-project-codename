@@ -1,5 +1,6 @@
 {
     "name": "alexa-project-codename",
+    "main": "index.js",
     "dependencies": {
         "project-name-generator": "~2.1"
     }
