@@ -1,0 +1,6 @@
+{
+    "name": "alexa-project-codename",
+    "dependencies": {
+        "project-name-generator": "~2.1"
+    }
+}
