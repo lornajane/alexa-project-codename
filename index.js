@@ -1,7 +1,8 @@
 function main(args) {
   var generate = require('project-name-generator');
-  var random = generate().spaced;
+  var pieces = generate().raw;
 
+  var random = pieces.join(", ");
   console.log(random);
 
   var response = {
