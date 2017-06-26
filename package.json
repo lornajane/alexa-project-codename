@@ -1,7 +1,9 @@
 {
-    "name": "alexa-project-codename",
-    "main": "index.js",
-    "dependencies": {
-        "project-name-generator": "~2.1"
-    }
+  "name": "alexa-project-codename",
+  "main": "index.js",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "project-name-generator": "~2.1",
+    "redis": "~2.7"
+  }
 }

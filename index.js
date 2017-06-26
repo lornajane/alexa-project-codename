@@ -1,10 +1,13 @@
-function main(args) {
-  var generate = require('project-name-generator');
-  var pieces = generate().raw;
+var bluebird = require('bluebird');
+var generate = require('project-name-generator');
+var redis = require('redis');
 
+function main(args) {
+  console.log(args);
+
+  var pieces = generate().raw;
   var random = pieces.join(", ");
   console.log(random);
-
   var response = {
     "version": "1.0",
     "response" :{
@@ -16,9 +19,18 @@ function main(args) {
     }
   }
 
-  console.log(response);
+  if(args.redisURL) {
+    bluebird.promisifyAll(redis.RedisClient.prototype);
+    var client = redis.createClient(args.redisURL);
+    return client.lpushAsync(["codenames", random]).then(function (result) {
+      return client.ltrimAsync(["codenames", 0, 2]);
+    }).then(function(result) {
+      return response;
+    });
+  } else {
+    return response;
+  }
 
-  return(response);
 }
 
 exports.main = main;
