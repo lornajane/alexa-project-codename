@@ -8,7 +8,7 @@ function main(args) {
       if(args.redisURL) {
         bluebird.promisifyAll(redis.RedisClient.prototype);
         var client = redis.createClient(args.redisURL);
-        return client.lrangeAsync(["codenames", 0, -1]).then(function (result) {
+        return client.getAsync(["codenames"]).then(function (result) {
           console.log(result);
           return {
             "version": "1.0",
@@ -16,7 +16,7 @@ function main(args) {
               "shouldEndSession": true,
               "outputSpeech": {
                 "type": "PlainText",
-                "text": result.join(".  ")
+                "text": result
               }
             }
           }
@@ -52,9 +52,7 @@ function main(args) {
       if(args.redisURL) {
         bluebird.promisifyAll(redis.RedisClient.prototype);
         var client = redis.createClient(args.redisURL);
-        return client.lpushAsync(["codenames", random]).then(function (result) {
-          return client.ltrimAsync(["codenames", 0, 2]);
-        }).then(function(result) {
+        return client.setAsync(["codenames", random]).then(function (result) {
           return response;
         });
       } else {
